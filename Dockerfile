@@ -1,5 +1,5 @@
-# https://hub.docker.com/_/microsoft-dotnet-core
-FROM mcr.microsoft.com/dotnet/core/sdk:6.0 AS build
+
+FROM amd64/buildpack-deps:jammy-curl  AS build
 WORKDIR /CalcApiAppCodeInsideDevOps
 
 # copy csproj and restore as distinct layers
@@ -13,7 +13,8 @@ WORKDIR /CalcApiAppCodeInsideDevOps
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM $REPO:6.0.11-jammy-amd64
+ENV ASPNET_VERSION=6.0.11
 WORKDIR /app
 COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "CalcApiAppCodeInsideDevOps.dll"]
