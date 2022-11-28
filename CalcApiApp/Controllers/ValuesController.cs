@@ -1,42 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using HassanCalcDev;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using SampleCalcClassLibrary;
 
-//https://github.com/HassanEzz1/ApiApp2.git
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace CalcApiAppCodeInsideDevOps.Controllers
+namespace CalcApiApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
-
-        Calc x =new Calc();
+        Calc myCalc = new Calc();
 
         // GET: api/<ValuesController>
         [HttpGet("/average")]
-        public int Average([FromQueryAttribute]int[]nums)
+        public int Average([FromQuery]int[]nums)
         {
-               return x.Average(nums);
-
+            return myCalc.Average(nums);
         }
-
 
         [HttpGet("/smallest")]
-        public int Smallest([FromQueryAttribute] int[] nums)
+        public int Smallest([FromQuery]int[]nums)
         {
-          return  x.Smallest(nums);
+            return myCalc.Smallest(nums);
         }
-
 
         [HttpGet("/largest")]
-        public int Largest([FromQueryAttribute] int[] nums)
+        public int Largest([FromQuery]int[]nums)
         {
-            return x.Largest(nums);
+            return myCalc.Largest(nums);
         }
     }
-
-        
-    
 }
